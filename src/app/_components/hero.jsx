@@ -7,8 +7,6 @@ import { useState, useEffect } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 
-import "@splidejs/react-splide/css";
-
 const projects = [
   {
     category: "diseño web",
