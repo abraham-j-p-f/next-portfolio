@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Hero from "./_components/hero";
 import Experience from "./_components/experience";
 import HowIwork from "./_components/howWork";
@@ -12,8 +11,10 @@ export default function Home() {
     <main className="w-full flex flex-col justify-center bg-portfolio-white text-portfolio-black selection:bg-portfolio-blue-dark selection:text-portfolio-white lg:gap-16 gap-8">
       <Hero />
       <Experience />
-      <HowIwork />
-      <Tools />
+      <div className="w-full flex flex-col">
+        <HowIwork />
+        <Tools />
+      </div>
       <AboutMe />
       <ContactMe />
       <Footer />

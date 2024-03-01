@@ -21,9 +21,10 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body
-        className={`${roboto.variable} ${grandstander.variable} bg-portfolio-white select-none`}
+        className={`${roboto.variable} ${grandstander.variable} bg-portfolio-white overflow-x-hidden`}
       >
-        <MomentumScroll>{children}</MomentumScroll>
+        {children}
+        {/* <MomentumScroll>{children}</MomentumScroll> */}
       </body>
     </html>
   );

@@ -1,3 +1,13 @@
+"use client";
+
+import SeparatedWord from "@/components/separatedWord";
+import useIntersectionObserver from "@/components/useIntersectionObserver";
+import { useEffect, useRef, useState } from "react";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
+import { useInView } from "framer-motion";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
 const experiences = [
   {
     year: "2023",
@@ -28,7 +38,7 @@ const experiences = [
 
 function ExperienceBlock({ year, experiences }) {
   return (
-    <ul className="flex flex-col 2xl:gap-12 gap-6">
+    <ul className="experience flex flex-col 2xl:gap-12 gap-6">
       <div className="relative">
         <h2 className="font-grandstander font-bold sm:text-2xl text-xl leading-none">
           {year}
@@ -57,31 +67,77 @@ function ExperienceBlock({ year, experiences }) {
 }
 
 export default function Experience() {
+  useGSAP(() => {
+    gsap.registerPlugin(ScrollTrigger);
+    let tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: ".work",
+        start: "top 30%",
+      },
+    });
+    tl.from(".experience-title", {
+      y: 100,
+      opacity: 0,
+      ease: "power4.out",
+      duration: 0.4,
+      stagger: 0.03,
+    });
+    tl.from(".line", {
+      scaleY: 0,
+      ease: "power4.out",
+      duration: 0.8,
+    });
+    tl.from(".experience", {
+      y: 100,
+      opacity: 0,
+      ease: "power4.out",
+      duration: 0.8,
+      stagger: 0.3,
+    });
+    tl.from(".experience-image", {
+      y: 100,
+      opacity: 0,
+      ease: "power4.out",
+      duration: 0.8,
+      stagger: 0.3,
+    });
+  });
+
   return (
     <section className="w-full flex justify-center lg:py-16 py-8">
-      <div className="container flex lg:flex-row flex-col-reverse xl:gap-16 gap-8 md:px-8 px-4">
+      <div className="work container flex lg:flex-row flex-col-reverse xl:gap-16 gap-8 md:px-8 px-4">
         <div className="flex flex-1 flex-wrap gap-8">
           <div className="w-full">
             <div className="grid grid-cols-2 sm:gap-8 gap-4 w-full">
-              <div className="col-span-2 aspect-video lg:border-[8px] md:border-[6px] border-4 border-portfolio-black"></div>
-              <div className="xl:col-span-1 lg:col-span-2 col-span-1 xl:aspect-square lg:aspect-video aspect-square lg:border-[8px] md:border-[6px] border-4 border-portfolio-black"></div>
-              <div className="xl:col-span-1 lg:col-span-2 col-span-1 xl:aspect-square lg:aspect-video aspect-square lg:border-[8px] md:border-[6px] border-4 border-portfolio-black"></div>
+              <div className="experience-image col-span-2 aspect-video lg:border-[8px] md:border-[6px] border-4 border-portfolio-black"></div>
+              <div className="experience-image xl:col-span-1 lg:col-span-2 col-span-1 xl:aspect-square lg:aspect-video aspect-square lg:border-[8px] md:border-[6px] border-4 border-portfolio-black"></div>
+              <div className="experience-image xl:col-span-1 lg:col-span-2 col-span-1 xl:aspect-square lg:aspect-video aspect-square lg:border-[8px] md:border-[6px] border-4 border-portfolio-black"></div>
             </div>
           </div>
         </div>
         <div className="flex flex-col gap-8">
-          <h1 className="font-grandstander font-bold 2xl:text-4xl md:text-3xl text-2xl capitalize lg:hidden">
-            Mi trayectoria
+          <h1 className="font-grandstander font-bold 2xl:text-4xl md:text-3xl text-2xl lg:hidden">
+            <div className="flex 2xl:gap-x-8 xl:gap-x-6 md:gap-x-4 gap-x-3 flex-wrap">
+              <SeparatedWord
+                sentence={"Mi trayectoria"}
+                className={"experience-title"}
+              />
+            </div>
           </h1>
           <div className="flex xl:gap-16 gap-8">
             <div className="w-4 h-full 2xl:pt-40 lg:pt-28 pt-0 pb-24 sm:flex hidden justify-center">
-              <div className="w-1 bg-portfolio-blue-light h-full"></div>
+              <div className="line w-1 bg-portfolio-blue-light h-full"></div>
             </div>
             <div className="flex flex-col 2xl:gap-16 gap-8 2xl:w-[620px] xl:w-[500px] lg:w-[400px] w-full">
-              <h1 className="font-grandstander font-bold 2xl:text-4xl md:text-3xl text-2xl capitalize lg:block hidden">
-                Mi trayectoria
+              <h1 className="font-grandstander font-bold 2xl:text-4xl md:text-3xl text-2xl lg:block hidden">
+                <div className="flex 2xl:gap-x-8 xl:gap-x-6 md:gap-x-4 gap-x-3 flex-wrap">
+                  <SeparatedWord
+                    sentence={"Mi trayectoria"}
+                    className={"experience-title"}
+                  />
+                </div>
               </h1>
-              <div className="flex flex-col sm:gap-16 gap-8 ">
+              <div className="flex flex-col sm:gap-16 gap-8">
                 {experiences.map(({ year, experience }, index) => {
                   return (
                     <ExperienceBlock
